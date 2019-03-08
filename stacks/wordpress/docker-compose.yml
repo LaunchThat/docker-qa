@@ -40,3 +40,4 @@ services:
     volumes:
       - web:/var/www/html
       - ${DB_DUMP_FILE}:/scripts/staging.sql.gz
+      - ${SETUP_SCRIPT}:/scripts/setup.sh
