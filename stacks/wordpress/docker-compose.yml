@@ -22,6 +22,9 @@ services:
       - WORDPRESS_SITEURL=${DOCKER_HOST}:${WEB_PORT}
     depends_on:
       - gitnode
+    volumes:
+      - web:/var/www/html
+      - ${WEB_UPLOADS}:/var/www/html/wp-content/uploads
 
   gitnode:
     image: 'ltdcox/gitnode'
@@ -34,3 +37,6 @@ services:
       - GULP_BUILD_TASK=${BUILD_TASK}
     depends_on:
       - mysql
+    volumes:
+      - web:/var/www/html
+      - ${DB_DUMP_FILE}:/scripts/staging.sql.gz
