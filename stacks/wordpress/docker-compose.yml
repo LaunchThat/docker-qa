@@ -1,4 +1,4 @@
-version: '3'
+version: '2'
 services:
   mysql:
     image: 'mysql:5.7.24'
@@ -32,7 +32,5 @@ services:
       - GITHUB_NAME=${DEV_NAME}
       - GITHUB_EMAIL=${DEV_EMAIL}
       - GULP_BUILD_TASK=${BUILD_TASK}
-    healthcheck:
-      test: "exit 0"
     depends_on:
       - mysql
