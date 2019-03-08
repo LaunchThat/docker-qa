@@ -36,3 +36,5 @@ services:
       - GITHUB_EMAIL=email
     healthcheck:
       test: "exit 0"
+    depends_on:
+      - mysql
