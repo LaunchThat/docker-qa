@@ -4,8 +4,8 @@ services:
     image: 'mysql:5.7.24'
     environment:
       - MYSQL_ROOT_PASSWORD=${DB_ROOT_PW}
-      - MYSQL_DATABASE=${DB_WP_DB}
-      - MYSQL_USER=${DB_WP_USER}
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=wordpress
       - MYSQL_PASSWORD=${DB_WP_PW}
     volumes:
       - db:/var/lib/mysql
@@ -19,7 +19,7 @@ services:
       - ${WP_PORT}:80
     environment:
       - WORDPRESS_DB_HOST=mysql:3306
-      - WORDPRESS_DB_USER=${WP_DB_USER}
+      - WORDPRESS_DB_USER=wordpress
       - WORDPRESS_DB_PASSWORD=${DB_WP_PW}
       - WORDPRESS_SITEURL=${DOCKER_HOST}:${WP_PORT}
     depends_on:
@@ -29,11 +29,11 @@ services:
   gitnode:
     image: 'ltdcox/gitnode'
     environment:
-      - GITHUB_ORG=org
-      - GITHUB_REPO=repo
-      - GITHUB_BRANCH=branch
-      - GITHUB_NAME=John Doe
-      - GITHUB_EMAIL=email
+      - GITHUB_ORG=${ORG}
+      - GITHUB_REPO=${REPO}
+      - GITHUB_BRANCH=${BRANCH}
+      - GITHUB_NAME=${NAME}
+      - GITHUB_EMAIL=#{EMAIL_ADDRESS}
     healthcheck:
       test: "exit 0"
     depends_on:
