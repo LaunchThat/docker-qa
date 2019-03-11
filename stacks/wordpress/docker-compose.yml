@@ -23,7 +23,7 @@ services:
     depends_on:
       - gitnode
     volumes:
-      - ${BRANCH}/web:/var/www/html
+      - ${REPO}-${BRANCH}-web:/var/www/html
       - ${WEB_UPLOADS}:/var/www/html/wp-content/uploads
 
   gitnode:
@@ -38,7 +38,7 @@ services:
     depends_on:
       - mysql
     volumes:
-      - ${BRANCH}/web:/var/www/html
+      - ${REPO}-${BRANCH}-web:/var/www/html
       - ${DB_DUMP_FILE}:/scripts/staging.sql.gz
       - ${SETUP_SCRIPT}:/scripts/setup.sh
     command: "/bin/bash /scripts/setup.sh"
