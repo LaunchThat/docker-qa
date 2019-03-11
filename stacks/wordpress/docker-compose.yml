@@ -41,4 +41,5 @@ services:
       - ${REPO}-${BRANCH}-web:/var/www/html
       - ${DB_DUMP_FILE}:/scripts/staging.sql.gz
       - ${SETUP_SCRIPT}:/scripts/setup.sh
-    command: "/bin/bash /scripts/setup.sh"
+      - ${SSH_KEYS}:/root/.ssh
+    command: "bash /scripts/setup.sh"
