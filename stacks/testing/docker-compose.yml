@@ -1,0 +1,49 @@
+version: '2'
+services:
+  mysql:
+    image: 'mysql:5.7.24'
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=wordpress
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+
+  memcached:
+    image: memcached
+
+  wordpress:
+    image: 'ltdcox/wordpress:ubuntu1804'
+    restart: on-failure
+    ports:
+      - ${WEB_PORT}:80
+    environment:
+      - WORDPRESS_DB_HOST=mysql:3306
+      - WORDPRESS_DB_USER=wordpress
+      - WORDPRESS_DB_PASSWORD=${DB_PASSWORD}
+      - WORDPRESS_SITEURL=http://${DOCKER_HOST}:${WEB_PORT}
+    depends_on:
+      - gitnode
+    volumes:
+      - ${REPO}-${BRANCH}-web:/var/www/html
+      - ${WEB_UPLOADS}:/var/www/html/wp-content/uploads
+
+  gitnode:
+    image: 'ltdcox/gitnode'
+    environment:
+      - GITHUB_ORG=${ORG}
+      - GITHUB_REPO=${REPO}
+      - GITHUB_BRANCH=${BRANCH}
+      - GITHUB_NAME=${DEV_NAME}
+      - GITHUB_EMAIL=${DEV_EMAIL}
+      - GULP_BUILD_TASK=${BUILD_TASK}
+      - DB_DUMP=/import/{DB_DUMP_NAME}.sql.bz2
+    depends_on:
+      - mysql
+    volumes:
+      - ${REPO}-${BRANCH}-web:/var/www/html
+      - ${DB_DUMP_FILE}:/scripts/staging.sql.gz
+      - ${DB_DUMP_DIR}:/import
+      - ${SETUP_SCRIPT}:/scripts/setup.sh
+      - ${SSH_KEYS}:/root/.ssh
+      - ${WEB_UPLOADS}:/var/www/html/wp-content/uploads
+    command: "bash /scripts/setup.sh"
