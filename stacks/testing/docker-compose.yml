@@ -36,7 +36,7 @@ services:
       - GITHUB_NAME=${DEV_NAME}
       - GITHUB_EMAIL=${DEV_EMAIL}
       - GULP_BUILD_TASK=${BUILD_TASK}
-      - DB_DUMP={DB_DUMP_NAME}
+      - DB_DUMP=${DB_DUMP_NAME}
     depends_on:
       - mysql
     volumes:
