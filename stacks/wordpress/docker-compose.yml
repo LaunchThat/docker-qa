@@ -40,7 +40,7 @@ services:
       - mysql
     volumes:
       - ${REPO}-${BRANCH}-web:/var/www/html
-      - ${DB_DUMP_DIR}:/import
+      - ${DB_DUMP_FILE}:/scripts/staging.sql.gz
       - ${SETUP_SCRIPT}:/scripts/setup.sh
       - ${SSH_KEYS}:/root/.ssh
       - ${WEB_UPLOADS}:/var/www/html/wp-content/uploads
