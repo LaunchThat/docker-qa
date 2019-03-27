@@ -36,11 +36,13 @@ services:
       - GITHUB_NAME=${DEV_NAME}
       - GITHUB_EMAIL=${DEV_EMAIL}
       - GULP_BUILD_TASK=${BUILD_TASK}
+      - DB_DUMP=${DB_DUMP_NAME}
     depends_on:
       - mysql
     volumes:
       - ${REPO}-${BRANCH}-web:/var/www/html
       - ${DB_DUMP_FILE}:/scripts/staging.sql.gz
+      - ${DB_DUMP_DIR}:/import
       - ${SETUP_SCRIPT}:/scripts/setup.sh
       - ${SSH_KEYS}:/root/.ssh
       - ${WEB_UPLOADS}:/var/www/html/wp-content/uploads
