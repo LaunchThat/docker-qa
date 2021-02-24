@@ -50,4 +50,4 @@ services:
     command: "bash /scripts/setup.sh"
 
 volumes:
-  '${REPO}_${BRANCH}_web:''
+  '${REPO}_${BRANCH}_web:'
