@@ -21,7 +21,7 @@ services:
       - WORDPRESS_DB_HOST=mysql:3306
       - WORDPRESS_DB_USER=wordpress
       - WORDPRESS_DB_PASSWORD=${DB_PASSWORD}
-      - WORDPRESS_SITEURL='http://${DOCKER_HOST}:${WEB_PORT}'
+      - WORDPRESS_SITEURL=http://${WEB_HOST}:${WEB_PORT}
     depends_on:
       - gitnode
     volumes:
