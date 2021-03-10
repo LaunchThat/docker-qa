@@ -1,7 +1,8 @@
-version: '2'
+---
+version: "3.8"
 services:
   mysql:
-    image: 'mysql:5.7.24'
+    image: 'mysql:5.7'
     environment:
       - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
       - MYSQL_DATABASE=wordpress
@@ -20,11 +21,11 @@ services:
       - WORDPRESS_DB_HOST=mysql:3306
       - WORDPRESS_DB_USER=wordpress
       - WORDPRESS_DB_PASSWORD=${DB_PASSWORD}
-      - WORDPRESS_SITEURL=http://${DOCKER_HOST}:${WEB_PORT}
+      - WORDPRESS_SITEURL=http://${WEB_HOST}:${WEB_PORT}
     depends_on:
       - gitnode
     volumes:
-      - ${REPO}-${BRANCH}-web:/var/www/html
+      - web_data:/var/www/html
       - ${WEB_UPLOADS}:/var/www/html/wp-content/uploads
 
   gitnode:
@@ -40,10 +41,14 @@ services:
     depends_on:
       - mysql
     volumes:
-      - ${REPO}-${BRANCH}-web:/var/www/html
+      - web_data:/var/www/html
       - ${DB_DUMP_FILE}:/scripts/staging.sql.gz
       - ${DB_DUMP_DIR}:/import
       - ${SETUP_SCRIPT}:/scripts/setup.sh
       - ${SSH_KEYS}:/root/.ssh
       - ${WEB_UPLOADS}:/var/www/html/wp-content/uploads
     command: "bash /scripts/setup.sh"
+
+volumes:
+  web_data:
+    name: ${REPO}-${BRANCH}-web
