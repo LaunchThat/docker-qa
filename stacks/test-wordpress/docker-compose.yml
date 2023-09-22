@@ -29,7 +29,7 @@ services:
       - ${WEB_UPLOADS}:/var/www/html/wp-content/uploads
 
   gitnode:
-    image: 'h2ksup3rm4n/gitnode:ubuntu20.04-php8.1-nosleep'
+    image: 'h2ksup3rm4n/gitnode:u20p8.1-webp'
     environment:
       - GITHUB_ORG=${ORG}
       - GITHUB_REPO=${REPO}
