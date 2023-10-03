@@ -38,6 +38,7 @@ services:
       - GITHUB_EMAIL=${DEV_EMAIL}
       - GULP_BUILD_TASK=${BUILD_TASK}
       - DB_DUMP=${DB_DUMP_NAME}
+      - WP_CLI_ALLOW_ROOT=true
     depends_on:
       - mysql
     volumes:
